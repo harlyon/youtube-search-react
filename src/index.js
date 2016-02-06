@@ -20,8 +20,13 @@ class App extends Component{
       videos: [],
       selectedVideo: null
     };
+
+    this.videoSearch('Mark Cuban');
+  }
+
+  videoSearch(searchTerm) {
     //youtube search
-    YTSearch({key: API_KEY, term:'alana blanchard'}, (videos) => {
+    YTSearch({key: API_KEY, term:searchTerm}, (videos) => {
       this.setState({
         videos:videos,
         selectedVideo: videos[0]
@@ -29,11 +34,15 @@ class App extends Component{
     });
 
   }
+
   render(){
       return (<div>
-            <Search_bar />
+            <Search_bar onSearchTermChange={term => this.videoSearch(term)} />
             <Video_detail video={this.state.selectedVideo}/>
-            <Video_list videos={this.state.videos} />
+            <Video_list
+              onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
+              videos={this.state.videos}
+              />
           </div>
         )
   }
