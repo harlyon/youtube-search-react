@@ -1,5 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
+import webpack from 'webpack'
 import path from 'path'
 import config from '../webpack.config.dev'
 
@@ -10,12 +11,11 @@ const compiler = webpack(config)
 app.use(morgan('dev'))
 
 app.use(require('webpack-dev-middleware')(compiler))
-// set view directory and default view engine
-app.set('views', '../src')
+
 app.set('view engine', 'pug')
 // main route
 app.get('*', (req, res) => {
-  res.render('index', { title: 'Welcome!' })
+  res.render(path.join(__dirname, '../src/views'), { title: 'Welcome!' })
 })
 // start server
 app.listen(port, (err) => {
