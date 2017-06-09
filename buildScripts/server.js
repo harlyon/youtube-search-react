@@ -15,7 +15,7 @@ app.use(require('webpack-dev-middleware')(compiler))
 app.set('view engine', 'pug')
 // main route
 app.get('*', (req, res) => {
-  res.render(path.join(__dirname, '../src/views'), { title: 'Welcome!' })
+  res.render(path.join(__dirname, '../src'), { title: 'Welcome!' })
 })
 // start server
 app.listen(port, (err) => {
